@@ -1,0 +1,57 @@
+<html>
+<html ng-app="pelada">
+<head>
+	<meta charset="utf-8">
+	<title>Pelada</title>
+	<script src="lib/angular/angular.js"></script>
+	<link rel="stylesheet" type="text/css" href="lib/bootstrap/bootstrap.css">
+	<style>
+		.jumbotron{
+			width: 400px;
+			text-align: center;
+			margin-top: 20px;
+			margin-left: auto;
+			margin-right: auto;
+		}
+
+		.table{
+			margin-top: 20px;
+		}
+
+		.form-control{
+			margin-bottom: 5px;
+		}
+
+	</style>
+	<script>
+		var pelada = angular.module('pelada',[]);
+		pelada.controller('peladaCtrl', function($scope){
+			$scope.peladeiros = [];
+			$scope.app = 'Pelada'
+
+			$scope.adicionarPeladeiro = function(peladeiro){			
+				$scope.peladeiros.push(angular.copy(peladeiro));
+				delete $scope.peladeiro;				
+			};
+		});
+	</script>
+</head>
+<body ng-controller="peladaCtrl">
+	<div class="jumbotron">
+		<h3>{{app}}</h3>
+		<table class="table">
+			<tr>
+				<th>Nome</th>
+				<th>Telefone</th>
+			</tr>
+			<tr ng-repeat="pel in peladeiros">
+				<td>{{pel.nome}}</td>
+				<td>{{pel.telefone}}</td>
+			</tr>
+		</table>
+		<input class="form-control" type="text" ng-model="peladeiro.nome" placeholder="Nome"></input>
+		<input class="form-control" type="text" ng-model="peladeiro.telefone" placeholder="Telefone"></input>
+		<button class="btn btn-primary btn-block" ng-click="adicionarPeladeiro(peladeiro)" ng-disabled="!peladeiro.nome && !peladeiro.telefone" >Salvar</button>
+	</div>
+</body>
+</html>
